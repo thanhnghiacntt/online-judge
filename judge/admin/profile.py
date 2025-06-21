@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as OldUserAdmin
 from django.forms import ModelForm
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils.html import format_html
 from django.utils.translation import gettext, gettext_lazy as _, ngettext
 from reversion.admin import VersionAdmin
-
+from django.http import HttpResponseRedirect
 from judge.models import Profile, WebAuthnCredential
 from judge.utils.views import NoBatchDeleteMixin
 from judge.widgets import AdminAceWidget, AdminMartorWidget, AdminSelect2Widget
@@ -68,6 +68,9 @@ class ProfileAdmin(NoBatchDeleteMixin, VersionAdmin):
     actions_on_bottom = True
     form = ProfileForm
     inlines = [WebAuthnInline]
+
+    def add_view(self, request, form_url='', extra_context=None):
+        return HttpResponseRedirect(reverse('admin:judge_profile_changelist'))
 
     def has_add_permission(self, request, obj=None):
         return False

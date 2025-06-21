@@ -17,6 +17,8 @@ DATABASES = {
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+ADMIN_MEDIA_PREFIX = os.path.join(BASE_DIR, 'media')
 COMPRESS_ROOT = STATIC_ROOT
 CACHES = {
     'default': {
@@ -44,18 +46,51 @@ COMPRESS_OFFLINE_CONTEXT = {
     'request': None,
 }
 
-LANGUAGE_CODE = 'vi'
+# Event Server (WebSocket)
+# EVENT_DAEMON_USE = True
+# EVENT_DAEMON_POST = 'ws://127.0.0.1:15101/'
+# EVENT_DAEMON_GET = 'ws://127.0.0.1:15100/'
+# EVENT_DAEMON_POLL = '/channels/'
 
+# Celery (for async tasks)
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+# Judge settings
+DMOJ_JUDGE_PRIORITY = 0
+DMOJ_JUDGE_TIMEOUT = 30
+
+# PDF rendering
+USE_SELENIUM = True
+SELENIUM_CUSTOM_CHROME_PATH = '/usr/bin/google-chrome'
+SELENIUM_CHROMEDRIVER_PATH = '/usr/bin/chromedriver'
+
+# Timezone
+USE_TZ = True
+TIME_ZONE = 'Asia/Ho_Chi_Minh'
+DEFAULT_USER_TIME_ZONE = 'Asia/Ho_Chi_Minh'
+
+# Language settings
+LANGUAGE_CODE = 'vi'
+USE_I18N = True
+USE_L10N = True
+# Danh sách ngôn ngữ được hỗ trợ
+LANGUAGES = [
+    ('vi', 'Tiếng Việt'),
+    ('en', 'English'),
+]
+
+# Site header
 SITE_ID = 1
 SITE_NAME = 'Kaiwa VN'
 SITE_LONG_NAME = 'Kaiwa Việt Nam'
 SITE_ADMIN_EMAIL = 'thanhnghiacntt@gmail.com'
 
 BRIDGED_JUDGE_ADDRESS = [('0.0.0.0', 9999)]
-BRIDGED_JUDGE_PROXIES = None
+BRIDGED_JUDGE_PROXIES = ['127.0.0.1/32', '192.168.1.0/24']
 # Bỏ hoặc để trống BRIDGED_DJANGO_ADDRESS để tránh xung đột
 BRIDGED_DJANGO_ADDRESS = [('0.0.0.0', 9998)]  # Khôi phục để bridge gửi dữ liệu
-BRIDGED_DJANGO_CONNECT = True  # Bật kết nối trực tiếp
+BRIDGED_DJANGO_CONNECT = ('0.0.0.0', 9998)  # Bật kết nối trực tiếp
 JUDGE_LOG_VERBOSITY = 3
 LOGGING = {
     'version': 1,
@@ -72,4 +107,18 @@ LOGGING = {
         },
     },
 }
+
 DMOJ_PROBLEM_DATA_ROOT = '/problems/'
+DMOJ_RESOURCES = os.path.join(BASE_DIR, 'resources')
+
+DMOJ_PROBLEM_MIN_MEMORY_LIMIT = 16384  # 16MB minimum
+DMOJ_PROBLEM_MAX_MEMORY_LIMIT = 1048576  # 1GB maximum
+
+# Email (for password reset, etc.)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your-email@gmail.com'
+EMAIL_HOST_PASSWORD = 'your-app-password'
+DEFAULT_FROM_EMAIL = 'Kaiwa <your-email@gmail.com>'

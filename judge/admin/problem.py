@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext, gettext_lazy as _, ngettext
 from reversion.admin import VersionAdmin
-
+from django.http import HttpResponseRedirect
 from judge.models import LanguageLimit, Problem, ProblemClarification, ProblemPointsVote, ProblemTranslation, Profile, \
     Solution
 from judge.utils.views import NoBatchDeleteMixin
@@ -264,11 +264,18 @@ class ProblemPointsVoteAdmin(admin.ModelAdmin):
     search_fields = ('voter__user__username', 'problem__code', 'problem__name')
     readonly_fields = ('voter', 'problem', 'vote_time')
 
+    def add_view(self, request, form_url='', extra_context=None):
+        # Nếu không cho phép add, redirect về changelist
+        if not self.has_add_permission(request):
+            return HttpResponseRedirect(reverse('admin:judge_problempointsvote_changelist'))
+        return super().add_view(request, form_url, extra_context)
+
     def get_queryset(self, request):
         return ProblemPointsVote.objects.filter(problem__in=Problem.get_editable_problems(request.user))
 
     def has_add_permission(self, request):
         return False
+        #return request.user.has_perm('judge.edit_own_problem')
 
     def has_change_permission(self, request, obj=None):
         if obj is None:

@@ -223,14 +223,6 @@ else:
                     ],
                 },
                 {
-                    'model': 'judge.Organization',
-                    'icon': 'fa-users',
-                    'children': [
-                        'judge.OrganizationRequest',
-                        'judge.Class',
-                    ],
-                },
-                {
                     'model': 'judge.NavigationBar',
                     'icon': 'fa-bars',
                     'children': [
@@ -290,7 +282,7 @@ MIDDLEWARE = (
     'judge.middleware.APIMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'judge.middleware.LoginRequiredMiddleware',
+#    'judge.middleware.LoginRequiredMiddleware',
     'judge.middleware.MiscConfigMiddleware',
     'judge.middleware.DMOJLoginMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -541,11 +533,11 @@ EVENT_DAEMON_SUBMISSION_KEY = '6Sdmkx^%pk@GsifDfXcwX*Y7LRF%RGT8vmFpSxFBT$fwS7trc
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 # Whatever you do, this better be one of the entries in `LANGUAGES`.
-LANGUAGE_CODE = 'en'
-TIME_ZONE = 'UTC'
-DEFAULT_USER_TIME_ZONE = 'America/Toronto'
-USE_I18N = True
-USE_TZ = True
+#LANGUAGE_CODE = 'en'
+#TIME_ZONE = 'UTC'
+#DEFAULT_USER_TIME_ZONE = 'America/Toronto'
+#USE_I18N = True
+#USE_TZ = True
 
 # Cookies
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'

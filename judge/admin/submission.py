@@ -131,6 +131,11 @@ class SubmissionAdmin(VersionAdmin):
     actions_on_bottom = True
     inlines = [SubmissionSourceInline, SubmissionTestCaseInline, ContestSubmissionInline]
 
+    def add_view(self, request, form_url='', extra_context=None):
+        if not self.has_add_permission(request):
+            return HttpResponseRedirect(reverse('admin:judge_submission_changelist'))
+        return super().add_view(request, form_url, extra_context)
+
     def get_readonly_fields(self, request, obj=None):
         fields = self.readonly_fields
         if not request.user.has_perm('judge.lock_submission'):

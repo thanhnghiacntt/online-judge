@@ -22,6 +22,7 @@ from judge.views.select2 import AssigneeSelect2View, ClassSelect2View, CommentSe
     UserSearchSelect2View, UserSelect2View
 from judge.views.widgets import martor_image_uploader
 from martor.views import markdown_search_user
+from judge.views.about import about
 
 admin.autodiscover()
 
@@ -366,6 +367,8 @@ urlpatterns = [
         path('failure', tasks.demo_failure),
         path('progress', tasks.demo_progress),
     ])),
+
+    path('about/', about, name='about'),
 ]
 
 favicon_paths = ['apple-touch-icon-180x180.png', 'apple-touch-icon-114x114.png', 'android-chrome-72x72.png',
@@ -373,7 +376,7 @@ favicon_paths = ['apple-touch-icon-180x180.png', 'apple-touch-icon-114x114.png',
                  'android-chrome-36x36.png', 'apple-touch-icon-precomposed.png', 'apple-touch-icon-76x76.png',
                  'apple-touch-icon-60x60.png', 'android-chrome-96x96.png', 'mstile-144x144.png', 'mstile-150x150.png',
                  'safari-pinned-tab.svg', 'android-chrome-144x144.png', 'apple-touch-icon-152x152.png',
-                 'favicon-96x96.png',
+                 'favicon-96x96.png', 'favicon.ico',
                  'favicon-32x32.png', 'favicon-16x16.png', 'android-chrome-192x192.png', 'android-chrome-48x48.png',
                  'mstile-310x150.png', 'apple-touch-icon-144x144.png', 'browserconfig.xml', 'manifest.json',
                  'apple-touch-icon-120x120.png', 'mstile-310x310.png']
